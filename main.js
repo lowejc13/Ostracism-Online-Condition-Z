@@ -27,7 +27,7 @@ $(function() {
     // **Number** **of** **"likes"**
     // Each received "like" is indicated by the timepoint (in ms) at which the "like" will appear. To change the number of "likes" in each condition, add or remove timepoints. Make sure that every timepoint (except the first) is preceded by a single comma.
     // User will receive 6 likes at the following timepoints (in ms).
-    window.settings.condition_likes = [15000,35000,50000,80000,100000,132000];
+    window.settings.condition_likes = [15000,20000,35000,43000,50000,68000,80000,100000,132000,150000];
 
 	  // **Others' likes**
 	  // To keep the total distribution of "likes" constant across conditions, The "likes" received by one group member can be adjusted according to the participant's. By default, the other group member receives 9 "likes" in the participant-ostracism condition, 5 in the participant-inclusion condtion, and 1 in the participant-overinclusion condtion.
@@ -239,6 +239,24 @@ $(function() {
     }
     reorder();
 
+	  	    // When user receives likes
+    $('.userslikes').each(function() {
+      var that = $(this);
+      var usernames = $(this).data('usernames').split(",");
+      var times = $(this).data('likes').split(",");
+
+      for(var i=0; i<times.length; i++) { 
+        times[i] = +times[i]; 
+	            if(times[i]==43000) {
+        themsg = usernames[i] + " liked your post";
+        
+        setTimeout(function(themsg) {
+          that.text(parseInt(that.text()) + 1);
+          alertify.error(themsg)
+        }, times[i], themsg);
+      } 		
+    });
+	  
 	    // When user receives likes
     $('.usersDislikes').each(function() {
       var that = $(this);
@@ -247,6 +265,7 @@ $(function() {
 
       for(var i=0; i<times.length; i++) { 
         times[i] = +times[i]; 
+	            if(times[i]== 15000 || times[i]== 20000 || || times[i]== 35000 || times[i]== 50000 || times[i]== 80000 || times[i]== 100000 || times[i]== 132000 || times[i]== 150000 || times[i]== 160000) {
         themsg = usernames[i] + " disliked your post";
         
         setTimeout(function(themsg) {
